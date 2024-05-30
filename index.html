@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página Web Estática</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            background-image: url('https://cdn.pixabay.com/photo/2013/01/05/20/00/milky-way-74005_1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: relative;
+            min-height: 100vh; /* Para asegurar que el cuerpo ocupe toda la altura de la ventana */
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+            padding-bottom: 50px; /* Espacio para el botón */
+        }
+
+        .titulo-container {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .titulo {
+            font-size: 36px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .titulo img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .titulo h1 {
+            color: white;
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            animation: swing 2s infinite alternate;
+        }
+
+        @keyframes swing {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .contenido {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            margin: 20px auto;
+        }
+
+        .imagen-lateral {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .imagen-lateral img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .texto-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .titulo-hijo {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .texto {
+            font-size: 16px;
+        }
+
+        .imagen-abajo {
+            margin-top: 20px;
+        }
+
+        .boton-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .boton {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .boton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Título Principal -->
+        <div class="titulo-container">
+            <div class="titulo">
+                <img src="https://cdn.pixabay.com/photo/2020/12/14/15/48/light-bulb-5831252_1280.jpg" alt="Mi imagen de fondo" />
+                <h1>EL BULLYNG</h1>
+            </div>
+        </div>
+        <!-- Contenido Principal -->
+        <div class="contenido">
+            <h2>¿ QUÉ ES EL BULLYNG ?</h2>
+            <div class="texto-container">
+                <p>Es una forma de violencia entre compañeros en la que uno o varios alumnos molestan y agreden de manera constante y repetida a uno o varios compañeros, quienes no pueden defenderse de manera efectiva y generalmente están en una posición de desventaja o inferioridad. O TAMBIÉN El bullying o acoso es la agresión para ejercer poder sobre otra persona. Concretamente, los investigadores lo han definido como una serie de amenazas hostiles, físicas o verbales que se repiten, angustiando a la víctima y estableciendo un desequilibrio de poder entre ella y su acosador.</p>
+            </div>
+        </div>
+        <!-- Imagen Lateral y Texto -->
+        <div class="imagen-lateral">
+            <img src="https://media.istockphoto.com/id/1301795370/es/vector/concepto-v%C3%ADctima-de-acoso-ciberacoso-ciberacoso-retrato-de-mujer-con-frustraci%C3%B3n-estr%C3%A9s.jpg?s=612x612&w=0&k=20&c=9YXIiKqPR5IFyoysKCGzhAauyGYmimPQ9PONnq-VFZE=" alt="Imagen relacionada" />
+            <div class="texto-container">
+                <h3 class="titulo-hijo">¿CÓMO PODEMOS PREVENIR EL BULLYNG?</h3>
+                <p class="texto">Promovamos el respeto y la empatía entre compañeros. Si ves a alguien siendo intimidado, apóyalo y busca ayuda de un adulto. Trabajemos juntos para crear un ambiente escolar seguro y amigable para todos.</p>
+            </div>
+            <div class="imagen-abajo">
+                <img src="https://media.istockphoto.com/id/1332657129/es/foto/dos-estudiantes-adolescentes-de-secundaria-asi%C3%A1ticos-consuelan-a-un-compa%C3%B1ero-de-clase-triste.jpg?s=612x612&w=0&k=20&c=Z66omzgn6l4MsQnLupoZE6kjCh_PBAglUAhF8btA9c0=" alt="Imagen abajo" />
+            </div>
+        </div>
+        <!-- Botón de Redirección -->
+        <div class="boton-container">
+            <a href="juego.html" class="boton">start the game (:</a>
+        </div>
+    </div>
+</body>
+</html>

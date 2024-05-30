@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bear Coin Collector</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://th.bing.com/th?id=OIP.daDN1kOypLe02Y2aSG8lPwHaEj&w=318&h=196&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2'); /* Ruta de la imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .game-area {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 50px auto;
+            background-color: rgba(154, 205, 50, 0.9); /* Fondo semitransparente para la visibilidad */
+            border: 5px solid #333;
+            overflow: hidden; /* Evita que el oso se salga del área del juego */
+        }
+
+        .bear {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('bear.png');
+            background-size: cover;
+        }
+
+        .coins {
+            position: absolute;
+        }
+
+        .coin {
+            width: 20px;
+            height: 20px;
+            background-color: gold;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .impostor {
+            background-color: red;
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 20px;
+        }
+
+        #timer {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+        }
+
+        .game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            color: white;
+        }
+
+        .game-over button {
+            padding: 10px 20px;
+            background-color: #ff4500;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-area">
+        <div id="bear" class="bear"></div>
+        <div id="score">Score: <span id="score-value">0</span></div>
+        <div id="timer">Time: <span id="timer-value">10</span></div>
+        <div id="coins" class="coins"></div>
+        <div id="game-over" class="game-over">
+            <span id="game-over-message"></span>
+            <button onclick="restartGame()">Restart</button>
+        </div>
+    </div>
+    <script>
+        const bear = document.getElementById('bear');
+        const coins = document.getElementById('coins');
+        const scoreDisplay = document.getElementById('score-value');
+        const timerDisplay = document.getElementById('timer-value');
+        const gameOverScreen = document.getElementById('game-over');
+        const gameOverMessage = document.getElementById('game-over-message');
+        let score = 0;
+        let timer = 10;
+        let gameIsOver = false;
+        let coinsCount = 0;
+        let level = 1;
+        let timerInterval;
+
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function createCoin() {
+            const coin = document.createElement('div');
+            coin.classList.add('coin');
+            coin.style.top = `${getRandomNumber(50, 350)}px`;
+            coin.style.left = `${getRandomNumber(50, 550)}px`;
+            coins.appendChild(coin);
+            coinsCount++;
+            if (getRandomNumber(1, 4) === 1) {
+                coin.classList.add('impostor');
+                setTimeout(() => {
+                    coin.style.backgroundColor = 'red';
+                    setTimeout(() => {
+                        coin.style.backgroundColor = 'gold';
+                    }, 500);
+                }, 500);
+            }
+
+            coin.addEventListener('click', () => {
+                if (!gameIsOver) {
+                    if (!coin.classList.contains('impostor')) {
+                        score++;
+                        scoreDisplay.textContent = score;
+                        coin.remove();
+                        coinsCount--;
+                        checkForCompletion();
+                    } else {
+                        endGame('You clicked on an impostor! Game over!');
+                    }
+                }
+            });
+        }
+
+        function checkForCompletion() {
+            const remainingCoins = document.querySelectorAll('.coin:not(.impostor)');
+            if (remainingCoins.length === 0) {
+                endGame('Congratulations! You completed the game!');
+            }
+        }
+
+        function endGame(message) {
+            gameIsOver = true;
+            clearInterval(timerInterval);
+            gameOverMessage.textContent = message;
+            gameOverScreen.style.display = 'block';
+        }
+
+        function restartGame() {
+            gameIsOver = false;
+            gameOverScreen.style.display = 'none';
+            score = 0;
+            scoreDisplay.textContent = score;
+            timer = 10;
+            timerDisplay.textContent = timer;
+            coins.innerHTML = '';
+            coinsCount = 0;
+            level = 1;
+            startGame();
+        }
+
+        function updateTimer() {
+            timer--;
+            timerDisplay.textContent = timer;
+            if (timer === 0) {
+                const remainingCoins = document.querySelectorAll('.coin:not(.impostor)');
+                if (remainingCoins.length > 0) {
+                    endGame('Time\'s up! Try again.');
+                } else {
+                    endGame('Congratulations! You completed the game!');
+                }
+            }
+        }
+
+        function moveBear(event) {
+            const x = event.clientX;
+            const y = event.clientY;
+            bear.style.left = `${x}px`;
+            bear.style.top = `${y}px`;
+        }
+
+        function startGame() {
+            timerInterval = setInterval(updateTimer, 1000);
+            for (let i = 0; i < 10 + level * 2; i++) {
+                createCoin();
+            }
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
+
